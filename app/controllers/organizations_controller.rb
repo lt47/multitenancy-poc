@@ -1,6 +1,16 @@
 class OrganizationsController < ApplicationController
+  #before_action :authenticate_user!
   before_action :set_organization, only: %i[ show edit update destroy ]
+  set_current_tenant_by_subdomain_or_domain(:organization, :subdomain, :domain)
 
+  before_action :check_subdomain
+
+  def check_subdomain
+    unless request.subdomain == current_user.subdomain
+      redirect_to root_path, alert: "You are not authorized to access that subdomain."
+    end
+  end
+  
   # GET /organizations or /organizations.json
   def index
     @organizations = Organization.all
