@@ -23,6 +23,18 @@
   </div>
 
   <div class="form-group">
+    <%= f.label :organization %>
+    <span class="description">(Unique name for your group or organization. Required for new accounts. If you'd like to join an existing organization, tell your admin to send you an invite.)</span>
+    <%= f.text_field :organization, required: true, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :plan %>
+    <%= f.select :plan, options_for_select(Plan.options, params[:plan]), {}, required: true, class: 'form-control' %>
+  </div>
+
+
+  <div class="form-group">
     <%= f.submit t('.sign_up'), class: 'btn btn-primary' %>
   </div>
 <% end %>
